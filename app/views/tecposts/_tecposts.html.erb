@@ -1,0 +1,26 @@
+<ul class="list-unstyled">
+  <% tecposts.each do |tecpost| %>
+    <li class="media mb-3">
+      <img class="mr-2 rounded" src="<%= gravatar_url(tecpost.user, { size: 50 }) %>" alt="">
+      <div class="media-body">
+        <div>
+          <%= link_to tecpost.user.name, user_path(tecpost.user) %> <span class="text-muted">posted at <%= tecpost.created_at %></span>
+        </div>
+        <div>
+          <p class="mb-0"><%= tecpost.title %></p>
+          <p class="mb-0"><%= tecpost.content %></p>
+          
+          <p>
+            <%= image_tag tecpost.image.url if tecpost.image? %>
+          </p>
+        </div>
+        <div>
+          <% if current_user == tecpost.user %>
+            <%= link_to "Delete", tecpost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+          <% end %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate tecposts %>
+</ul> 
