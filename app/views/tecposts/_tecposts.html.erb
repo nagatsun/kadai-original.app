@@ -11,7 +11,7 @@
           <p class="mb-0"><%= tecpost.content %></p>
           
           <p>
-            <%= image_tag tecpost.image.url if tecpost.image? %>
+            <%=image_tag tecpost.image.url if tecpost.image? %>
           </p>
         </div>
         <div>
@@ -23,4 +23,5 @@
     </li>
   <% end %>
   <%= paginate tecposts %>
-</ul> 
+</ul>
+
