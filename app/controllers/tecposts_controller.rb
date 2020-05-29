@@ -12,7 +12,7 @@ class TecpostsController < ApplicationController
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
     else
-      @tecposts = current_user.tecposts.order(id: :desc).page(params[:page])
+      @tecposts = current_user.feed_tecposts.order(id: :desc).page(params[:page])
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
       render 'toppages/index'
     end
