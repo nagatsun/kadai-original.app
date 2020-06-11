@@ -12,6 +12,13 @@ class User < ApplicationRecord
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverses_of_relationship, source: :user
   
+  has_many :favorites
+  has_many :likes, through: :favorites, source: :tecpost
+  
+  has_many :comments
+  has_many :remsgs, through: :comments, source: :tecpost
+  
+  
   def follow(other_user)
     unless self == other_user
       self.relationships.find_or_create_by(follow_id: other_user.id)
@@ -30,4 +37,29 @@ class User < ApplicationRecord
   def feed_tecposts
     Tecpost.where(user_id: self.following_ids + [self.id])
   end
+  
+  def like(tecpost)
+      favorites.find_or_create_by(tecpost_id: tecpost.id)
+  end
+  
+  def unlike(tecpost)
+    favorite = self.favorites.find_by(tecpost_id: tecpost.id)
+    favorite.destroy if favorite
+  end
+
+  def liking?(tecpost)
+    self.likes.include?(tecpost)
+  end
+  
+  def like_tecposts
+    Tecpost.where(id: self.like_ids)
+  end
+  
+  def self.search(search)   
+      if search  
+        where(['name LIKE ?', "%#{search}%"])   
+      else  
+        all  
+      end  
+  end  
 end

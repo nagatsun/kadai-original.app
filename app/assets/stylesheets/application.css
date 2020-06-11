@@ -1,15 +1,28 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+.myimg {
+  max-width: 250px;
+  object-fit: cover;
+}
+
+.form-group {
+  margin: 1em 0;
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+@media screen and (max-width: 640px) {
+  .pagination .page-link {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+}
+  .editpage {
+    font-size: 28px;
+  }
+  .nav {
+    width: 400px;
+    display:flex;
+    box-sizing :border-box;
+  }
+}

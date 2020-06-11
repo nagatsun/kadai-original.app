@@ -1,2 +1,16 @@
-<h1>Tecposts#edit</h1>
-<p>Find me in app/views/tecposts/edit.html.erb</p>
+<h1 class="editpage">メッセージ編集ページ</h1>
+
+<%= form_with(model: @tecpost, local: true) do |f| %>
+  <%= f.label :title, 'タイトル' %>
+  <%= f.text_field :title %>
+  
+  <%= f.label :content, 'メッセージ' %>
+  <%= f.text_field :content %>
+  
+  <%= f.label "画像をアップロード" %> 
+          <%= f.file_field :image %>
+
+  <%= f.submit '投稿' %>
+<% end %>
+
+<%= link_to '一覧に戻る', root_path %>

@@ -4,24 +4,31 @@
       <img class="mr-2 rounded" src="<%= gravatar_url(tecpost.user, { size: 50 }) %>" alt="">
       <div class="media-body">
         <div>
-          <%= link_to tecpost.user.name, user_path(tecpost.user) %> <span class="text-muted">posted at <%= tecpost.created_at %></span>
+          <%= link_to tecpost.id, tecpost %> <span class="text-muted" >投稿者: <%= tecpost.user.name %> <%= tecpost.created_at %></span>
         </div>
         <div>
           <p class="mb-0"><%= tecpost.title %></p>
-          <p class="mb-0"><%= tecpost.content %></p>
+        
+          <p class="mb-0 word-break"><%==h(tecpost.content).gsub(/\r\n|\r|\n/, "<br>") %></p>
           
           <p>
-            <%=image_tag tecpost.image.url if tecpost.image? %>
+            <%=image_tag tecpost.image.url, class: 'myimg' if tecpost.image? %>
           </p>
+      
         </div>
         <div>
           <% if current_user == tecpost.user %>
+          <div class="mt-0 pb-2">
+            <%= link_to "編集", edit_tecpost_path(tecpost), class: 'btn btn-primary btn-sm' %>
             <%= link_to "Delete", tecpost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+          </div>
           <% end %>
+          <%= render 'favorites/like_button', tecpost: tecpost %>
         </div>
       </div>
     </li>
   <% end %>
+  <div class="pagination"></div>
   <%= paginate tecposts %>
-</ul>
+</ul> 
 

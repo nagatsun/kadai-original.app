@@ -10,12 +10,21 @@ Rails.application.routes.draw do
     member do
       get :followings
       get :followers
+      get :likes
     end
     collection do
       get :search
     end
   end
   
-  resources :tecposts, only: [:edit, :create, :destroy]
+  resources :tecposts, only: [:show, :edit, :update, :create, :destroy] do
+    member do
+      get :remsgs
+    end
+  end
+      
   resources :relationships, only: [:create, :destroy]
+  resources :favorites, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
+  
 end

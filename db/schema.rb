@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_30_125358) do
+ActiveRecord::Schema.define(version: 2020_06_05_113330) do
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "content"
+    t.string "image"
+    t.bigint "user_id"
+    t.bigint "tecpost_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tecpost_id"], name: "index_comments_on_tecpost_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tecpost_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tecpost_id"], name: "index_favorites_on_tecpost_id"
+    t.index ["user_id", "tecpost_id"], name: "index_favorites_on_user_id_and_tecpost_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -46,6 +67,10 @@ ActiveRecord::Schema.define(version: 2020_05_30_125358) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "tecposts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "favorites", "tecposts"
+  add_foreign_key "favorites", "users"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "follow_id"
   add_foreign_key "tecposts", "users"

@@ -1,0 +1,12 @@
+
+  <% if current_user.liking?(tecpost) %>
+    <%= form_with(model: current_user.favorites.find_by(tecpost_id: tecpost.id), local: true, method: :delete) do |f| %>
+      <%= hidden_field_tag :tecpost_id, tecpost.id %>
+      <%= f.submit 'unfavorite', class: 'btn btn-danger btn-sm' %>
+    <% end %>
+  <% else %>
+    <%= form_with(model: current_user.favorites.build, local: true) do |f| %>
+      <%= hidden_field_tag :tecpost_id, tecpost.id %>
+      <%= f.submit 'favorite', class: 'btn btn-primary btn-sm' %>
+    <% end %>
+  <% end %>

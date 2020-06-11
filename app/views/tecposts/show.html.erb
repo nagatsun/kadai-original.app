@@ -1,0 +1,57 @@
+    <h1>メッセージ詳細ページ</h1>
+    
+      <div class="text-muted" >投稿者: <%= @tecpost.user.name %> <%= @tecpost.created_at %></div>
+      
+      <img class="mr-2 rounded" src="<%= gravatar_url(@tecpost.user, { size: 50 }) %>" alt="">
+      
+    <p><%= @tecpost.title %></p>
+    <p><%==h(@tecpost.content).gsub(/\r\n|\r|\n/, "<br>") %></p>
+    <p>
+    <%=image_tag @tecpost.image.url, class: 'hoge' if @tecpost.image? %>
+    </p>
+
+  <h2 class="mt-4 pb-2 border-bottom">コメント一覧</h2>
+  
+  <% @remsgs.each do |remsg| %>
+  
+    <div class="text-muted" >投稿者: <%= @remsg.user.name %> <%= @tecpost.created_at %></div>
+  
+    <img class="mr-2 rounded" src="<%= gravatar_url(@remsg.user, { size: 50 }) %>" alt="">  
+  
+    <p><%==(remsg.content).gsub(/\r\n|\r|\n/, "<br>") %></p>
+  
+  <p>
+  <%=image_tag remsg.image.url, class: 'hoge' if remsg.image? %>
+  </p>
+  
+  <% if current_user == remsg.user %>
+    <div class="mt-0 pb-2">
+    <%= link_to "削除", comment_path(remsg.id), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+    </div>
+  <% end %>
+
+<% end %>
+<%= paginate @remsgs %>
+
+
+<%= form_with(model: @remsg, local: true) do |f| %>
+
+<%= render 'layouts/error_messages', model: f.object %>
+
+<%= hidden_field_tag :tecpost_id, @tecpost.id %>
+
+<div class="form-group">
+  <%= f.label :content, 'コメント' %>
+  <%= f.text_area :content, class: 'form-control', rows: 4 %>
+</div>
+
+<div class="field">  
+  <%= f.label "画像をアップロード" %> 
+          <%= f.file_field :image %>
+</div>
+
+  <%= f.submit 'コメントする', class: "mt-2 mb-3" %>
+  
+<% end %>
+
+<%= link_to '一覧に戻る', root_path %>
