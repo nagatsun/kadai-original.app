@@ -7,7 +7,7 @@
     <p><%= @tecpost.title %></p>
     <p><%==h(@tecpost.content).gsub(/\r\n|\r|\n/, "<br>") %></p>
     <p>
-    <%=image_tag @tecpost.image.url, class: 'hoge' if @tecpost.image? %>
+    <%=image_tag @tecpost.image.url, class: 'myimg' if @tecpost.image? %>
     </p>
 
   <h2 class="mt-4 pb-2 border-bottom">コメント一覧</h2>
