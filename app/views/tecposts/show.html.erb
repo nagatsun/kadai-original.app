@@ -21,7 +21,7 @@
     <p><%==(remsg.content).gsub(/\r\n|\r|\n/, "<br>") %></p>
   
   <p>
-  <%=image_tag remsg.image.url, class: 'hoge' if remsg.image? %>
+  <%=image_tag remsg.image.url, class: 'myimg' if remsg.image? %>
   </p>
   
   <% if current_user == remsg.user %>
@@ -33,7 +33,7 @@
 <% end %>
 <%= paginate @remsgs %>
 
-
+ 
 <%= form_with(model: @remsg, local: true) do |f| %>
 
 <%= render 'layouts/error_messages', model: f.object %>
@@ -50,8 +50,8 @@
           <%= f.file_field :image %>
 </div>
 
-  <%= f.submit 'コメントする', class: "mt-2 mb-3" %>
-  
-<% end %>
+  <%= f.submit 'コメントする', class: 'btn btn-primary mt-2 mb-3' %>
 
+<% end %>
+ 
 <%= link_to '一覧に戻る', root_path %>

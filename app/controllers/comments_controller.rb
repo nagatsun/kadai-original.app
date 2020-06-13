@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+  class CommentsController < ApplicationController
   before_action :require_user_logged_in
   before_action :correct_user, only: [:destroy]
   
@@ -13,6 +13,7 @@ class CommentsController < ApplicationController
       flash[:success] = "コメントしました"
       redirect_back(fallback_location: root_path)
     else
+      @remsgs = Comment.order(id: :desc).page(params[:page]).per(3)
       flash[:success] = "コメントできませんでした"
       #redirect_back(fallback_location: root_path)
       render 'tecposts/show'

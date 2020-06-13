@@ -2,6 +2,9 @@
   <div class="row">
     <aside class="col-sm-4">
       <%= form_with(model: @tecpost, local: true) do |f| %>
+      
+      <%= render 'layouts/error_messages', model: f.object %>
+      
         <div class="form-group">
           <%= f.label "タイトル" %>
           <%= f.text_field :title, class: 'form-control' %>
@@ -17,7 +20,7 @@
           <%= f.file_field :image %>
         </div>
         
-        <%= f.submit '送信', class: 'btn btn-primary btn-block mt-2 mb-3' %>
+      <%= f.submit '送信', class: 'btn btn-primary btn-block mt-2 mb-3' %>
         
 <% end %>         
 
