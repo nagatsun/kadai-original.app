@@ -58,8 +58,8 @@ class User < ApplicationRecord
   def self.search(search)   
       if search  
         where(['name LIKE ?', "%#{search}%"])   
-      else  
-        all  
+      else
+        all
       end  
   end  
 end

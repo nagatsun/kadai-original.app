@@ -11,7 +11,8 @@
     @remsg.user_id = current_user.id
     if @remsg.save
       flash[:success] = "コメントしました"
-      redirect_back(fallback_location: root_path)
+      #redirect_back(fallback_location: root_path)
+      redirect_to @tecpost
     else
       @remsgs = Comment.order(id: :desc).page(params[:page]).per(3)
       flash[:success] = "コメントできませんでした"

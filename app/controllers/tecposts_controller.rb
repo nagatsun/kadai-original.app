@@ -1,6 +1,6 @@
 class TecpostsController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:edit,:update,:destroy]
   
   def show
     @tecpost = Tecpost.find(params[:id])

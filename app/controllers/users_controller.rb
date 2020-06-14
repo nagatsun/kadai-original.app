@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   def index
     @users = User.order(id: :desc).page(params[:page]).per(5)
     @search_users = User.all.page(params[:page]).search(params[:search])
+    if !@search_users.any? && params[:search]
+      flash.now[:danger] = '見つかりませんでした'
+    end
   end
 
   def show
